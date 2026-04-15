@@ -66,11 +66,19 @@ export default function Hero() {
           animate="show"
           className="flex flex-col items-start"
         >
-          {/* Terminal whoami */}
-          <motion.div variants={item} className="mb-6">
-            <span className="font-body text-sm text-text-muted">
-              <span className="text-brand">$</span> whoami
-            </span>
+          {/* Top row: Photo + Terminal whoami */}
+          <motion.div variants={item} className="mb-6 flex items-center gap-5">
+            <img
+              src="/sarthak.jpg"
+              alt="Sarthak Singh"
+              className="h-20 w-20 rounded-full border-2 border-brand object-cover shadow-[0_0_15px_rgba(0,255,65,0.3)] sm:h-24 sm:w-24"
+            />
+            <div>
+              <span className="font-body text-sm text-text-muted">
+                <span className="text-brand">$</span> whoami
+              </span>
+              <div className="mt-1 font-heading text-xs text-brand uppercase tracking-widest">Cybersecurity Consultant</div>
+            </div>
           </motion.div>
 
           {/* Name — typing animation */}
