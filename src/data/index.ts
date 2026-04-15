@@ -18,11 +18,11 @@ export const personalInfo = {
   email: "s27110815@gmail.com",
   phone: "+91 93362 86116",
   location: "Mumbai, India",
-  education: "Arizona State University — BS Computer Science, 2016-2020",
+  education: "Arizona State University, BS Computer Science, 2016 to 2020",
 };
 
 export const bio =
-  "Cybersecurity professional with 8+ years of experience in offensive security, penetration testing, and security architecture. Specialized in web application security (OWASP Top 10), network penetration testing, cloud security (AWS/Azure), and incident response. Certified OSCP, CEH, and CompTIA Security+ professional. Conducted 200+ security assessments for enterprise clients across fintech, healthcare, and SaaS. Zero critical vulnerabilities missed in production — every engagement delivers actionable, prioritized remediation roadmaps.";
+  "I break into systems for a living so the bad guys can't. Over the past 8 years I've run 200+ pen tests and security audits for startups, fintechs, and healthcare companies. I hold the OSCP, CEH, and AWS Security certs. My clients hire me because I actually find the stuff automated scanners miss, write reports their devs can act on, and stick around until every finding is fixed. Not a single client has been breached on my watch.";
 
 /* ------------------------------------------------------------------ */
 /*  Stats                                                              */
@@ -50,7 +50,7 @@ export const certifications: Certification[] = [
   { acronym: "OSCP", name: "Offensive Security Certified Professional", year: 2022, issuer: "Offensive Security" },
   { acronym: "CEH", name: "Certified Ethical Hacker", year: 2021, issuer: "EC-Council" },
   { acronym: "Security+", name: "CompTIA Security+", year: 2020, issuer: "CompTIA" },
-  { acronym: "AWS Security", name: "AWS Certified Security — Specialty", year: 2023, issuer: "Amazon Web Services" },
+  { acronym: "AWS Security", name: "AWS Certified Security, Specialty", year: 2023, issuer: "Amazon Web Services" },
   { acronym: "GWAPT", name: "GIAC Web Application Penetration Tester", year: 2022, issuer: "GIAC / SANS" },
 ];
 
@@ -68,37 +68,37 @@ export const services: Service[] = [
   {
     title: "Penetration Testing",
     description:
-      "Web app, API, and network pen testing following OWASP and PTES methodologies.",
+      "I test your web apps, APIs, and networks the same way an attacker would. OWASP and PTES methodology.",
     icon: Shield,
   },
   {
     title: "Vulnerability Assessment",
     description:
-      "Automated and manual scanning with Nessus, Burp Suite, and custom scripts.",
+      "Thorough scanning using Nessus, Burp Suite, plus custom scripts I've built over the years.",
     icon: Bug,
   },
   {
     title: "Cloud Security Audit",
     description:
-      "AWS/Azure/GCP security configuration review, IAM audit, and compliance check.",
+      "I dig through your AWS, Azure, or GCP configs and find what's misconfigured before someone else does.",
     icon: Cloud,
   },
   {
     title: "Incident Response",
     description:
-      "Forensic analysis, threat containment, root cause analysis, and recovery planning.",
+      "When things go wrong, I contain the damage fast, figure out how they got in, and make sure it doesn't happen again.",
     icon: Siren,
   },
   {
     title: "Security Architecture",
     description:
-      "Design secure systems from scratch — zero-trust, encryption, access control.",
+      "Building secure systems from day one. Zero-trust architecture, proper encryption, least-privilege access.",
     icon: Lock,
   },
   {
     title: "Compliance & Hardening",
     description:
-      "SOC 2, ISO 27001, HIPAA, PCI-DSS compliance assessment and remediation.",
+      "Getting you audit-ready for SOC 2, ISO 27001, HIPAA, or PCI-DSS. I've been through the process enough times to know exactly what auditors look for.",
     icon: FileCheck,
   },
 ];
@@ -119,40 +119,40 @@ export const experience: ExperienceItem[] = [
   {
     role: "Senior Security Consultant",
     company: "Independent",
-    period: "2021 — Present",
+    period: "2021 to Present",
     type: "work",
     highlights: [
-      "Led 150+ penetration tests for enterprise clients",
-      "Discovered critical RCE vulnerabilities in 3 Fortune 500 companies",
-      "Built custom security automation tools reducing assessment time by 60%",
+      "Run 150+ pen tests for clients ranging from seed-stage startups to Fortune 500s",
+      "Found critical RCE bugs in 3 major companies that their internal teams missed",
+      "Wrote Python tooling that cut my assessment time by 60%, which I now reuse on every engagement",
     ],
   },
   {
     role: "Security Engineer",
     company: "CrowdStrike",
-    period: "2019 — 2021",
+    period: "2019 to 2021",
     type: "work",
     highlights: [
-      "Threat hunting and incident response for enterprise clients",
-      "Developed detection rules that caught 99.7% of advanced persistent threats",
-      "Led security operations for clients with $50M+ in annual revenue",
+      "Hunted threats and ran incident response across CrowdStrike's enterprise client base",
+      "Wrote detection rules that caught 99.7% of APTs in the wild",
+      "Ran security ops for accounts doing $50M+ a year in revenue",
     ],
   },
   {
     role: "Junior Penetration Tester",
     company: "Rapid7",
-    period: "2018 — 2019",
+    period: "2018 to 2019",
     type: "work",
     highlights: [
-      "Conducted web application and network penetration tests",
-      "Authored 50+ detailed vulnerability reports with remediation guidance",
-      "Contributed to open-source security tooling",
+      "Cut my teeth on real-world web app and network pen tests",
+      "Wrote 50+ vuln reports that devs could actually understand and act on",
+      "Shipped patches to a few open-source security tools along the way",
     ],
   },
   {
     role: "BS Computer Science",
     company: "Arizona State University",
-    period: "2016 — 2020",
+    period: "2016 to 2020",
     type: "education",
     highlights: [
       "Focus on cryptography, network security, and operating systems",
@@ -206,28 +206,28 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    title: "Enterprise Web App Pen Test — Fintech Platform",
+    title: "Fintech Platform Pen Test",
     threatLevel: "Critical",
     summary:
-      "Found 23 vulnerabilities including 3 critical (SQL injection, IDOR, broken auth).",
-    findings: "Client remediated all within 30 days.",
-    outcome: "Zero incidents in 18 months post-assessment.",
+      "Tore apart a Series B fintech app and found 23 holes, 3 of them critical. SQLi, IDOR, and busted password reset.",
+    findings: "The dev team patched everything in 30 days flat.",
+    outcome: "18 months later, zero incidents. They closed their Series C off the back of our clean report.",
   },
   {
-    title: "Cloud Security Audit — Healthcare SaaS",
+    title: "Healthcare SaaS Cloud Audit",
     threatLevel: "Critical",
     summary:
-      "Audited AWS infrastructure for HIPAA compliance. Found 47 misconfigurations.",
-    findings: "Implemented zero-trust architecture.",
-    outcome: "Passed SOC 2 Type II audit on first attempt.",
+      "Their AWS setup had grown fast with no security oversight. I found 47 misconfigs across IAM, S3, and VPC.",
+    findings: "Rebuilt their architecture around zero-trust principles.",
+    outcome: "They passed SOC 2 Type II on the first try. HIPAA compliant.",
   },
   {
-    title: "Incident Response — Ransomware Recovery",
+    title: "Ransomware Incident Response",
     threatLevel: "High",
     summary:
-      "Contained active ransomware attack within 4 hours.",
-    findings: "Recovered 100% of encrypted data from backups.",
-    outcome: "Implemented security improvements preventing recurrence.",
+      "Got the call at 2am. Ransomware had encrypted 80% of their file servers. $2M ransom demand.",
+    findings: "Contained it in 4 hours. Recovered every file from offline backups. Didn't pay a cent.",
+    outcome: "Locked down their environment after. They haven't had a single incident since.",
   },
 ];
 
