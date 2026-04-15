@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sarthak Singh — CV | Cybersecurity Consultant</title>
+<meta name="description" content="CV/Resume of Sarthak Singh — Cybersecurity Consultant & Penetration Testing Specialist. OSCP, CEH, AWS Security certified. 200+ assessments, zero breaches." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+:root {
+  --bg: #0A0E14;
+  --surface: #111820;
+  --card: #151D28;
+  --brand: #00FF41;
+  --cyan: #00FFFF;
+  --alert: #FF3333;
+  --text: #E0E0E0;
+  --text-secondary: #8B9BB4;
+  --text-muted: #4A5568;
+  --border: rgba(0, 255, 65, 0.15);
+  --border-hover: rgba(0, 255, 65, 0.35);
+  --font-heading: 'Share Tech Mono', monospace;
+  --font-body: 'Fira Code', monospace;
+  --radius: 4px;
+}
+
+/* ========================================
+   RESET & BASE
+   ======================================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+
+a { color: var(--brand); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+
+::selection { background: rgba(0,255,65,0.25); color: var(--brand); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(0,255,65,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,65,0.4); }
+
+img { max-width: 100%; display: block; }
+
+/* ========================================
+   SCANLINE OVERLAY
+   ======================================== */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+.cv-wrapper {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   SIDEBAR
+   ======================================== */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0,255,65,0.15), rgba(0,255,65,0.05));
+  border: 2px solid var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: var(--brand);
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
+  margin: 0 auto 8px;
+  box-shadow: 0 0 20px rgba(0,255,65,0.1);
+}
+
+.sidebar-section { display: flex; flex-direction: column; gap: 10px; }
+
+.sidebar-label {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--brand);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+
+/* Contact items */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+.contact-item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  fill: var(--brand);
+}
+
+/* Skill bars */
+.skill-row { margin-bottom: 8px; }
+.skill-row .skill-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 3px;
+}
+.skill-bar {
+  height: 4px;
+  background: rgba(0,255,65,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: var(--brand);
+  box-shadow: 0 0 6px rgba(0,255,65,0.3);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* Tags */
+.tag-group { margin-bottom: 10px; }
+.tag-group-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag {
+  font-size: 9px;
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  background: rgba(0,255,65,0.03);
+  transition: border-color 0.2s;
+}
+.tag:hover { border-color: var(--border-hover); }
+
+/* Certifications */
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  padding: 4px 0;
+}
+.cert-badge {
+  font-size: 9px;
+  font-family: var(--font-heading);
+  color: var(--brand);
+  background: rgba(0,255,65,0.08);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+/* Portfolio mini gallery */
+.gallery { display: flex; flex-direction: column; gap: 8px; }
+.gallery-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 10px;
+  color: var(--text-secondary);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.gallery-item:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 12px rgba(0,255,65,0.06);
+}
+.gallery-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius);
+  background: rgba(0,255,65,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gallery-icon svg { width: 16px; height: 16px; fill: var(--brand); }
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+.main-content {
+  padding: 32px 40px;
+  background: var(--bg);
+  background-image: radial-gradient(rgba(0,255,65,0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Header */
+.cv-header { margin-bottom: 28px; }
+.cv-header h1 {
+  font-size: 28px;
+  color: var(--brand);
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
+  margin-bottom: 4px;
+}
+.cv-header .subtitle {
+  font-size: 14px;
+  color: var(--cyan);
+  text-shadow: 0 0 7px rgba(0,255,255,0.3);
+  margin-bottom: 12px;
+}
+.cv-header .bio {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.stat-item .stat-value {
+  color: var(--brand);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.stat-item .stat-sep {
+  color: var(--text-muted);
+}
+
+/* Section */
+.section { margin-bottom: 32px; }
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::before {
+  content: ">";
+  color: var(--brand);
+  opacity: 0.5;
+}
+
+/* Why Hire Me cards */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.why-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.why-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 20px rgba(0,255,65,0.06);
+}
+.why-card .why-value {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--brand);
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
+  margin-bottom: 4px;
+}
+.why-card .why-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Experience timeline */
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-entry {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+.timeline-entry::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 6px rgba(0,255,65,0.4);
+}
+.timeline-entry.education::before {
+  background: var(--cyan);
+  box-shadow: 0 0 6px rgba(0,255,255,0.4);
+}
+.timeline-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.timeline-header .role {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--text);
+}
+.timeline-header .company {
+  font-size: 12px;
+  color: var(--brand);
+}
+.timeline-header .period {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+.timeline-highlights {
+  list-style: none;
+  padding: 0;
+}
+.timeline-highlights li {
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: 2px 0;
+  padding-left: 14px;
+  position: relative;
+}
+.timeline-highlights li::before {
+  content: "$";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+/* Project cards */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.project-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 20px rgba(0,255,65,0.06);
+}
+.project-card .project-badge {
+  font-size: 9px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.project-badge.critical { color: var(--alert); background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3); }
+.project-badge.high { color: #FFA500; background: rgba(255,165,0,0.1); border: 1px solid rgba(255,165,0,0.3); }
+.project-card h4 {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.project-card p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.project-tech span {
+  font-size: 9px;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+}
+
+/* Methodology */
+.methodology-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.method-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+.method-step .step-num {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--brand);
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.method-step .step-name {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.method-arrow {
+  color: var(--text-muted);
+  font-size: 16px;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+/* Verified Platforms row */
+.verified-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+.verified-item {
+  text-align: center;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.verified-item .v-value {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--brand);
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.verified-item .v-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Education card */
+.edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.edu-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(0,255,255,0.08);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.edu-icon svg { width: 24px; height: 24px; fill: var(--cyan); }
+.edu-info h4 {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.edu-info p {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Awards list */
+.awards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+.award-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.award-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(0,255,65,0.08);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.award-icon svg { width: 14px; height: 14px; fill: var(--brand); }
+.award-info h4 {
+  font-size: 11px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.award-info p {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Green line separator */
+.green-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,65,0.3), transparent);
+  margin: 24px 0;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .cv-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 24px 20px;
+  }
+  .main-content {
+    padding: 24px 20px;
+  }
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+  .verified-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-row {
+    gap: 12px;
+  }
+  .stat-item {
+    font-size: 11px;
+  }
+  .timeline-header .period {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ========================================
+   PRINT CSS
+   ======================================== */
+@media print {
+  @page {
+    size: A4;
+    margin: 4mm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 7px !important;
+    line-height: 1.35 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body::after { display: none !important; }
+
+  .cv-wrapper {
+    grid-template-columns: 170px 1fr;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    background: #0A0E14 !important;
+    padding: 8px 8px !important;
+    gap: 8px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .sidebar-label {
+    font-size: 7px !important;
+    padding-bottom: 2px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .avatar-circle {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .contact-item { font-size: 6px !important; gap: 4px !important; }
+  .contact-item svg { width: 8px !important; height: 8px !important; }
+
+  .skill-row { margin-bottom: 3px !important; }
+  .skill-row .skill-label { font-size: 6px !important; }
+  .skill-bar { height: 2px !important; }
+
+  .tag { font-size: 6px !important; padding: 1px 3px !important; }
+  .cert-item { font-size: 6px !important; padding: 1px 0 !important; }
+  .cert-badge { font-size: 6px !important; padding: 0px 3px !important; }
+  .gallery-item { padding: 4px !important; font-size: 6px !important; }
+  .gallery-icon { width: 20px !important; height: 20px !important; }
+  .gallery-icon svg { width: 10px !important; height: 10px !important; }
+
+  .main-content {
+    padding: 8px 12px !important;
+    background: #fff !important;
+    background-image: none !important;
+  }
+
+  .cv-header h1 {
+    font-size: 16px !important;
+    color: #00AA2A !important;
+    text-shadow: none !important;
+  }
+  .cv-header .subtitle {
+    font-size: 8px !important;
+    color: #007799 !important;
+    text-shadow: none !important;
+  }
+  .cv-header .bio { font-size: 7px !important; color: #333 !important; }
+
+  .stats-row { margin-bottom: 8px !important; gap: 12px !important; }
+  .stat-item { font-size: 7px !important; }
+  .stat-item .stat-value { font-size: 8px !important; color: #00AA2A !important; text-shadow: none !important; }
+
+  .section { margin-bottom: 10px !important; }
+  .section-title {
+    font-size: 8px !important;
+    padding-bottom: 3px !important;
+    margin-bottom: 6px !important;
+    text-shadow: none !important;
+    color: #00AA2A !important;
+  }
+
+  .why-grid { gap: 6px !important; }
+  .why-card { padding: 6px !important; }
+  .why-card .why-value { font-size: 12px !important; text-shadow: none !important; color: #00AA2A !important; }
+  .why-card .why-label { font-size: 6px !important; }
+
+  .timeline { padding-left: 12px !important; }
+  .timeline-entry { margin-bottom: 8px !important; padding-left: 12px !important; }
+  .timeline-entry::before { width: 5px !important; height: 5px !important; left: -14px !important; }
+  .timeline-header .role { font-size: 8px !important; }
+  .timeline-header .company { font-size: 7px !important; }
+  .timeline-header .period { font-size: 6px !important; }
+  .timeline-highlights li { font-size: 6px !important; }
+
+  .projects-grid { gap: 6px !important; }
+  .project-card { padding: 6px !important; }
+  .project-card h4 { font-size: 8px !important; }
+  .project-card p { font-size: 6px !important; }
+  .project-badge { font-size: 6px !important; }
+  .project-tech span { font-size: 5px !important; }
+
+  .methodology-flow { gap: 0 !important; }
+  .method-step { padding: 4px 8px !important; }
+  .method-step .step-num { font-size: 10px !important; text-shadow: none !important; }
+  .method-step .step-name { font-size: 6px !important; }
+
+  .verified-row { gap: 4px !important; }
+  .verified-item { padding: 4px !important; }
+  .verified-item .v-value { font-size: 9px !important; text-shadow: none !important; }
+  .verified-item .v-label { font-size: 5px !important; }
+
+  .edu-card { padding: 6px !important; gap: 8px !important; }
+  .edu-icon { width: 28px !important; height: 28px !important; }
+  .edu-icon svg { width: 14px !important; height: 14px !important; }
+  .edu-info h4 { font-size: 8px !important; }
+  .edu-info p { font-size: 6px !important; }
+
+  .awards-list { gap: 4px !important; }
+  .award-item { padding: 4px !important; gap: 6px !important; }
+  .award-icon { width: 18px !important; height: 18px !important; }
+  .award-icon svg { width: 10px !important; height: 10px !important; }
+  .award-info h4 { font-size: 7px !important; }
+  .award-info p { font-size: 6px !important; }
+
+  .green-line { margin: 6px 0 !important; }
+
+  .tag-group-label { font-size: 6px !important; }
+  .tag-group { margin-bottom: 4px !important; }
+
+  a { color: inherit !important; }
+  .neon-glow { text-shadow: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="cv-wrapper">
+
+  <!-- ============================== SIDEBAR ============================== -->
+  <aside class="sidebar">
+
+    <!-- Avatar -->
+    <div style="text-align:center">
+      <div class="avatar-circle">SS</div>
+      <div style="font-family:var(--font-heading);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;">Cybersecurity</div>
+    </div>
+
+    <!-- Contact -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Contact</div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>s27110815@gmail.com</span>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        <span>+91 93362 86116</span>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>Mumbai, India</span>
+      </div>
+    </div>
+
+    <!-- Core Expertise -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Core Expertise</div>
+      <div class="skill-row">
+        <div class="skill-label"><span>Penetration Testing</span><span>98%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:98%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>Web App Security</span><span>97%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:97%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>Cloud Security (AWS/Azure)</span><span>95%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>Incident Response</span><span>94%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:94%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>Python/Bash Scripting</span><span>96%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:96%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>MITRE ATT&amp;CK</span><span>93%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:93%"></div></div>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Tech Stack</div>
+      <div class="tag-group">
+        <div class="tag-group-label">Offensive</div>
+        <div class="tags">
+          <span class="tag">Burp Suite</span>
+          <span class="tag">Metasploit</span>
+          <span class="tag">Nmap</span>
+          <span class="tag">Wireshark</span>
+          <span class="tag">sqlmap</span>
+          <span class="tag">Hashcat</span>
+        </div>
+      </div>
+      <div class="tag-group">
+        <div class="tag-group-label">Defensive</div>
+        <div class="tags">
+          <span class="tag">Splunk</span>
+          <span class="tag">CrowdStrike</span>
+          <span class="tag">Snort</span>
+          <span class="tag">OSSEC</span>
+          <span class="tag">Suricata</span>
+        </div>
+      </div>
+      <div class="tag-group">
+        <div class="tag-group-label">Cloud</div>
+        <div class="tags">
+          <span class="tag">AWS Security Hub</span>
+          <span class="tag">Azure Sentinel</span>
+          <span class="tag">CloudTrail</span>
+          <span class="tag">GuardDuty</span>
+        </div>
+      </div>
+      <div class="tag-group">
+        <div class="tag-group-label">Languages</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Bash</span>
+          <span class="tag">PowerShell</span>
+          <span class="tag">Go</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Certifications</div>
+      <div class="cert-item"><span class="cert-badge">OSCP</span><span>Offensive Security &middot; 2022</span></div>
+      <div class="cert-item"><span class="cert-badge">CEH</span><span>EC-Council &middot; 2021</span></div>
+      <div class="cert-item"><span class="cert-badge">Security+</span><span>CompTIA &middot; 2020</span></div>
+      <div class="cert-item"><span class="cert-badge">AWS Security</span><span>Amazon &middot; 2023</span></div>
+      <div class="cert-item"><span class="cert-badge">GWAPT</span><span>GIAC / SANS &middot; 2022</span></div>
+    </div>
+
+    <!-- Portfolio Gallery -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Portfolio</div>
+      <div class="gallery">
+        <a href="portfolio/" class="gallery-item">
+          <div class="gallery-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <span>Fintech Pen Test</span>
+        </a>
+        <a href="portfolio/" class="gallery-item">
+          <div class="gallery-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <span>Healthcare Audit</span>
+        </a>
+        <a href="portfolio/" class="gallery-item">
+          <div class="gallery-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5s-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/></svg>
+          </div>
+          <span>Ransomware IR</span>
+        </a>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ============================== MAIN ============================== -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <div class="cv-header">
+      <h1>Sarthak Singh</h1>
+      <div class="subtitle">Cybersecurity Consultant &amp; Penetration Testing Specialist</div>
+      <p class="bio">Cybersecurity professional with 8+ years of experience in offensive security, penetration testing, and security architecture. Specialized in web application security (OWASP Top 10), network penetration testing, cloud security (AWS/Azure), and incident response. Certified OSCP, CEH, and CompTIA Security+ professional. Conducted 200+ security assessments for enterprise clients across fintech, healthcare, and SaaS. Zero critical vulnerabilities missed in production &mdash; every engagement delivers actionable, prioritized remediation roadmaps.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-value">8+</span> Years <span class="stat-sep">|</span></div>
+      <div class="stat-item"><span class="stat-value">200+</span> Assessments <span class="stat-sep">|</span></div>
+      <div class="stat-item"><span class="stat-value">OSCP</span> Certified <span class="stat-sep">|</span></div>
+      <div class="stat-item"><span class="stat-value">Zero</span> Breaches</div>
+    </div>
+
+    <!-- Why Hire Me -->
+    <div class="section">
+      <div class="section-title">Why Hire Me</div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-value">200+</div>
+          <div class="why-label">Assessments Completed</div>
+        </div>
+        <div class="why-card">
+          <div class="why-value">Zero</div>
+          <div class="why-label">Breaches on Watch</div>
+        </div>
+        <div class="why-card">
+          <div class="why-value">OSCP</div>
+          <div class="why-label">CEH / GWAPT Certified</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+      <div class="section-title">Experience</div>
+      <div class="timeline">
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <span class="role">Senior Security Consultant</span>
+            <span class="company">Independent</span>
+            <span class="period">2021 &mdash; Present</span>
+          </div>
+          <ul class="timeline-highlights">
+            <li>Led 150+ penetration tests for enterprise clients</li>
+            <li>Discovered critical RCE vulnerabilities in 3 Fortune 500 companies</li>
+            <li>Built custom security automation tools reducing assessment time by 60%</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <span class="role">Security Engineer</span>
+            <span class="company">CrowdStrike</span>
+            <span class="period">2019 &mdash; 2021</span>
+          </div>
+          <ul class="timeline-highlights">
+            <li>Threat hunting and incident response for enterprise clients</li>
+            <li>Developed detection rules that caught 99.7% of advanced persistent threats</li>
+            <li>Led security operations for clients with $50M+ in annual revenue</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <span class="role">Junior Penetration Tester</span>
+            <span class="company">Rapid7</span>
+            <span class="period">2018 &mdash; 2019</span>
+          </div>
+          <ul class="timeline-highlights">
+            <li>Conducted web application and network penetration tests</li>
+            <li>Authored 50+ detailed vulnerability reports with remediation guidance</li>
+            <li>Contributed to open-source security tooling</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry education">
+          <div class="timeline-header">
+            <span class="role">BS Computer Science</span>
+            <span class="company">Arizona State University</span>
+            <span class="period">2016 &mdash; 2020</span>
+          </div>
+          <ul class="timeline-highlights">
+            <li>Focus on cryptography, network security, and operating systems</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Featured Projects -->
+    <div class="section">
+      <div class="section-title">Featured Projects</div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <span class="project-badge critical">Critical</span>
+          <h4>Enterprise Web App Pen Test &mdash; Fintech Platform</h4>
+          <p>Found 23 vulnerabilities including 3 critical (SQL injection, IDOR, broken auth). Client remediated all within 30 days. Zero incidents in 18 months post-assessment.</p>
+          <div class="project-tech">
+            <span>Burp Suite</span>
+            <span>sqlmap</span>
+            <span>Nmap</span>
+            <span>Python</span>
+            <span>OWASP ZAP</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="project-badge critical">Critical</span>
+          <h4>Cloud Security Audit &mdash; Healthcare SaaS</h4>
+          <p>Audited AWS infrastructure for HIPAA compliance. Found 47 misconfigurations. Implemented zero-trust architecture. Passed SOC 2 Type II audit on first attempt.</p>
+          <div class="project-tech">
+            <span>AWS Security Hub</span>
+            <span>CloudTrail</span>
+            <span>GuardDuty</span>
+            <span>Prowler</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="project-badge high">High</span>
+          <h4>Incident Response &mdash; Ransomware Recovery</h4>
+          <p>Contained active ransomware attack within 4 hours. Recovered 100% of encrypted data from backups. Implemented security improvements preventing recurrence.</p>
+          <div class="project-tech">
+            <span>CrowdStrike</span>
+            <span>Splunk</span>
+            <span>Wireshark</span>
+            <span>Volatility</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Methodology -->
+    <div class="section">
+      <div class="section-title">Methodology</div>
+      <div class="methodology-flow">
+        <div class="method-step">
+          <div class="step-num">01</div>
+          <div class="step-name">Reconnaissance</div>
+        </div>
+        <div class="method-arrow">&rarr;</div>
+        <div class="method-step">
+          <div class="step-num">02</div>
+          <div class="step-name">Enumeration</div>
+        </div>
+        <div class="method-arrow">&rarr;</div>
+        <div class="method-step">
+          <div class="step-num">03</div>
+          <div class="step-name">Exploitation</div>
+        </div>
+        <div class="method-arrow">&rarr;</div>
+        <div class="method-step">
+          <div class="step-num">04</div>
+          <div class="step-name">Reporting</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verified Platforms -->
+    <div class="section">
+      <div class="section-title">Verified Track Record</div>
+      <div class="verified-row">
+        <div class="verified-item">
+          <div class="v-value">200+</div>
+          <div class="v-label">Assessments</div>
+        </div>
+        <div class="verified-item">
+          <div class="v-value">OSCP</div>
+          <div class="v-label">Certified</div>
+        </div>
+        <div class="verified-item">
+          <div class="v-value">Zero</div>
+          <div class="v-label">Breaches</div>
+        </div>
+        <div class="verified-item">
+          <div class="v-value">$500K+</div>
+          <div class="v-label">Saved</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+      <div class="section-title">Education</div>
+      <div class="edu-card">
+        <div class="edu-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+        </div>
+        <div class="edu-info">
+          <h4>Arizona State University</h4>
+          <p>BS Computer Science &middot; 2016 &mdash; 2020</p>
+          <p>Focus: Cryptography, Network Security, Operating Systems</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Awards & Recognition -->
+    <div class="section">
+      <div class="section-title">Awards &amp; Recognition</div>
+      <div class="awards-list">
+        <div class="award-item">
+          <div class="award-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
+          <div class="award-info">
+            <h4>OSCP Certification</h4>
+            <p>Offensive Security Certified Professional &middot; 2022</p>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
+          <div class="award-info">
+            <h4>CEH Certification</h4>
+            <p>Certified Ethical Hacker &middot; EC-Council 2021</p>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          </div>
+          <div class="award-info">
+            <h4>AWS Security Specialty</h4>
+            <p>Amazon Web Services &middot; 2023</p>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+          </div>
+          <div class="award-info">
+            <h4>Industry Recognition</h4>
+            <p>Featured in Business Insider for cybersecurity excellence</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="green-line"></div>
+
+    <div style="text-align:center;padding:8px 0">
+      <p style="font-size:10px;color:var(--text-muted)">
+        <a href="/" style="color:var(--brand);">&gt; sarthak_singh</a>
+        &nbsp;&middot;&nbsp;
+        <a href="portfolio/" style="color:var(--brand);">portfolio</a>
+        &nbsp;&middot;&nbsp;
+        s27110815@gmail.com &nbsp;&middot;&nbsp; +91 93362 86116
+      </p>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

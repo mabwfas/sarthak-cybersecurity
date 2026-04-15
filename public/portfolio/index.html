@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio | Sarthak Singh &mdash; Security Assessments &amp; Case Studies</title>
+<meta name="description" content="Detailed case studies from 200+ penetration tests, security audits, and incident response engagements by Sarthak Singh, OSCP-certified cybersecurity consultant." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+:root {
+  --bg: #0A0E14;
+  --surface: #111820;
+  --card: #151D28;
+  --brand: #00FF41;
+  --cyan: #00FFFF;
+  --alert: #FF3333;
+  --orange: #FFA500;
+  --text: #E0E0E0;
+  --text-secondary: #8B9BB4;
+  --text-muted: #4A5568;
+  --border: rgba(0, 255, 65, 0.15);
+  --border-hover: rgba(0, 255, 65, 0.35);
+  --font-heading: 'Share Tech Mono', monospace;
+  --font-body: 'Fira Code', monospace;
+  --radius: 4px;
+}
+
+/* ========================================
+   RESET & BASE
+   ======================================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  background-image: radial-gradient(rgba(0,255,65,0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+a { color: var(--brand); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+::selection { background: rgba(0,255,65,0.25); color: var(--brand); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(0,255,65,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,65,0.4); }
+
+/* ========================================
+   SCANLINE OVERLAY
+   ======================================== */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* ========================================
+   UTILITY
+   ======================================== */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.neon-text { text-shadow: 0 0 7px rgba(0,255,65,0.4), 0 0 14px rgba(0,255,65,0.2); }
+.neon-text-strong { text-shadow: 0 0 10px rgba(0,255,65,0.6), 0 0 20px rgba(0,255,65,0.3), 0 0 40px rgba(0,255,65,0.1); }
+.neon-text-cyan { text-shadow: 0 0 7px rgba(0,255,255,0.4), 0 0 14px rgba(0,255,255,0.2); }
+
+.green-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,65,0.3), transparent);
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink { animation: cursor-blink 1s step-end infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--brand); }
+  50% { opacity: 0.5; box-shadow: 0 0 8px var(--brand), 0 0 16px rgba(0,255,65,0.3); }
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  animation: pulse-dot 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  background: rgba(10,14,20,0.92);
+}
+.navbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  color: var(--brand);
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.nav-links { display: flex; align-items: center; gap: 20px; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--brand); opacity: 1; }
+.nav-cta {
+  border: 1px solid var(--brand) !important;
+  color: var(--brand) !important;
+  padding: 4px 14px;
+  border-radius: var(--radius);
+  box-shadow: 0 0 10px rgba(0,255,65,0.15);
+  transition: background 0.2s, box-shadow 0.2s !important;
+}
+.nav-cta:hover {
+  background: rgba(0,255,65,0.1) !important;
+  box-shadow: 0 0 20px rgba(0,255,65,0.25) !important;
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--brand);
+  cursor: pointer;
+  font-size: 24px;
+  font-family: var(--font-heading);
+}
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.nav-mobile a {
+  display: block;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  border-radius: var(--radius);
+  transition: background 0.2s, color 0.2s;
+}
+.nav-mobile a:hover { background: var(--surface); color: var(--brand); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .nav-mobile.open { display: flex; }
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+}
+.hero-prompt {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.hero-prompt span { color: var(--brand); }
+.hero h1 {
+  font-size: 36px;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.hero h1 span { color: var(--brand); }
+.hero .hero-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+/* Trust bar */
+.trust-bar {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  text-align: center;
+}
+.trust-value {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--brand);
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
+}
+.trust-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========================================
+   SECTION COMMON
+   ======================================== */
+.section {
+  padding: 60px 0;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-header .section-tag {
+  font-size: 10px;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.section-header h2 {
+  font-size: 24px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.section-header p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   WHY HIRE ME (6 cards)
+   ======================================== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.why-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.why-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 20px rgba(0,255,65,0.08), inset 0 0 12px rgba(0,255,65,0.03);
+  transform: translateY(-2px);
+}
+.why-card .why-icon {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--brand);
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
+  margin-bottom: 12px;
+}
+.why-card h3 {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.why-card p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .why-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .why-grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================
+   CASE STUDIES
+   ======================================== */
+.case-study {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 32px;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.case-study:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 30px rgba(0,255,65,0.06);
+}
+
+.case-header {
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.case-header-left { flex: 1; min-width: 280px; }
+.case-num {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.case-title {
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.case-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.case-meta-item {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.case-meta-item span { color: var(--text-muted); }
+
+.case-badge {
+  font-size: 10px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.case-badge.critical { color: var(--alert); background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3); }
+.case-badge.high { color: var(--orange); background: rgba(255,165,0,0.1); border: 1px solid rgba(255,165,0,0.3); }
+
+.case-body { padding: 24px 28px; }
+
+.case-section { margin-bottom: 20px; }
+.case-section-label {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--brand);
+  margin-bottom: 6px;
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.case-section-label::before { content: "// "; color: var(--text-muted); }
+.case-section p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.case-section ul {
+  list-style: none;
+  padding: 0;
+}
+.case-section ul li {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 3px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.case-section ul li::before {
+  content: "$";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Impact stats */
+.case-impact {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.impact-item {
+  background: rgba(0,255,65,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+.impact-value {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--brand);
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.impact-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Case tech tags */
+.case-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 16px 28px 20px;
+  border-top: 1px solid var(--border);
+}
+.case-tech span {
+  font-size: 10px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  background: rgba(0,255,65,0.03);
+}
+
+/* ========================================
+   PROCESS / METHODOLOGY
+   ======================================== */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.process-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.process-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 20px rgba(0,255,65,0.06);
+}
+.process-num {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  color: var(--brand);
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
+  margin-bottom: 8px;
+}
+.process-card h3 {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.process-card p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Arrow between cards */
+.process-card:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 18px;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .process-grid { grid-template-columns: 1fr 1fr; }
+  .process-card::after { display: none; }
+}
+@media (max-width: 480px) {
+  .process-grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================
+   TECH STACK
+   ======================================== */
+.tech-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.tech-category {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.tech-category-label {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--brand);
+  margin-bottom: 12px;
+  text-shadow: 0 0 7px rgba(0,255,65,0.4);
+}
+.tech-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tech-tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  background: rgba(0,255,65,0.03);
+  transition: border-color 0.2s, color 0.2s;
+}
+.tech-tag:hover {
+  border-color: var(--border-hover);
+  color: var(--brand);
+}
+
+/* ========================================
+   CONTACT CTA
+   ======================================== */
+.cta-section {
+  text-align: center;
+  padding: 80px 20px;
+}
+.cta-section h2 {
+  font-size: 26px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.cta-section p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--bg);
+  background: var(--brand);
+  padding: 10px 28px;
+  border-radius: var(--radius);
+  box-shadow: 0 0 20px rgba(0,255,65,0.3);
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(0,255,65,0.5);
+  transform: translateY(-1px);
+  opacity: 1;
+}
+.btn-outline {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--brand);
+  border: 1px solid var(--brand);
+  padding: 10px 28px;
+  border-radius: var(--radius);
+  box-shadow: 0 0 10px rgba(0,255,65,0.15);
+  transition: background 0.2s, box-shadow 0.3s;
+}
+.btn-outline:hover {
+  background: rgba(0,255,65,0.1);
+  box-shadow: 0 0 20px rgba(0,255,65,0.25);
+  opacity: 1;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-lock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.footer-lock svg { width: 12px; height: 12px; fill: var(--brand); }
+.footer-copy {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.footer-top {
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.footer-top:hover { color: var(--brand); }
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .hero { padding: 60px 0 40px; }
+  .hero h1 { font-size: 26px; }
+  .trust-bar { gap: 20px; }
+  .case-header { padding: 16px 20px 12px; }
+  .case-body { padding: 16px 20px; }
+  .case-tech { padding: 12px 20px 16px; }
+  .section { padding: 40px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== NAVBAR ============================== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="nav-logo neon-text">&gt; sarthak_singh</a>
+    <div class="nav-links">
+      <a href="#cases">Case Studies</a>
+      <a href="#process">Process</a>
+      <a href="#tools">Tech Stack</a>
+      <a href="/#contact" class="nav-cta">Hire Me</a>
+    </div>
+    <button class="nav-toggle" onclick="document.getElementById('mobileNav').classList.toggle('open')" aria-label="Toggle menu">&equiv;</button>
+  </div>
+  <div class="nav-mobile" id="mobileNav">
+    <a href="#cases" onclick="document.getElementById('mobileNav').classList.remove('open')">&gt; case_studies</a>
+    <a href="#process" onclick="document.getElementById('mobileNav').classList.remove('open')">&gt; process</a>
+    <a href="#tools" onclick="document.getElementById('mobileNav').classList.remove('open')">&gt; tech_stack</a>
+    <a href="/#contact" onclick="document.getElementById('mobileNav').classList.remove('open')">&gt; hire_me</a>
+  </div>
+</nav>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero container">
+  <div class="hero-prompt"><span>$</span> cat ./portfolio<span class="cursor-blink">_</span></div>
+  <h1>Security Assessments<br />&amp; <span class="neon-text-strong">Case Studies</span></h1>
+  <p class="hero-sub">Detailed reports from 200+ penetration tests, security audits, and incident response engagements across fintech, healthcare, and enterprise SaaS platforms.</p>
+
+  <div class="trust-bar">
+    <div class="trust-item">
+      <div class="trust-value neon-text">200+</div>
+      <div class="trust-label">Assessments</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-value neon-text">OSCP</div>
+      <div class="trust-label">Certified</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-value neon-text">Zero</div>
+      <div class="trust-label">Breaches</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-value neon-text">8+</div>
+      <div class="trust-label">Years</div>
+    </div>
+  </div>
+</section>
+
+<div class="green-line"></div>
+
+<!-- ============================== WHY HIRE ME ============================== -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag neon-text">// why_hire_me</div>
+      <h2>What Sets Me Apart</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">[&gt;]</div>
+        <h3>Terminal-Grade Methodology</h3>
+        <p>Every engagement follows OWASP, PTES, and MITRE ATT&amp;CK frameworks. No shortcuts, no templates &mdash; every assessment is tailored to your architecture.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">[!]</div>
+        <h3>Zero False Negative Policy</h3>
+        <p>200+ assessments with zero critical vulnerabilities missed in production. Manual verification of every automated finding ensures nothing slips through.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">[=]</div>
+        <h3>Actionable Reporting</h3>
+        <p>Reports include executive summaries, technical details, proof-of-concept exploits, and prioritized remediation roadmaps. No jargon-heavy fluff.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">[#]</div>
+        <h3>NDA &amp; Confidentiality</h3>
+        <p>Strict NDA enforcement on every engagement. Client data never leaves secure environments. All findings handled with enterprise-grade confidentiality.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">[~]</div>
+        <h3>Fast Turnaround</h3>
+        <p>Web app pen tests delivered within 2-3 weeks. Emergency incident response available within 4 hours. Reports delivered within 48 hours of assessment completion.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">[+]</div>
+        <h3>Post-Assessment Support</h3>
+        <p>Free retesting after remediation. 30-day support window for questions. Ongoing advisory for security architecture decisions and compliance preparation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="green-line"></div>
+
+<!-- ============================== CASE STUDIES ============================== -->
+<section class="section" id="cases">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag neon-text">// case_studies</div>
+      <h2>Detailed Engagements</h2>
+      <p>Real assessments with anonymized client details. Every engagement follows a rigorous Problem &rarr; Solution &rarr; Impact framework.</p>
+    </div>
+
+    <!-- Case Study 01 -->
+    <article class="case-study">
+      <div class="case-header">
+        <div class="case-header-left">
+          <div class="case-num">Case Study 01</div>
+          <h3 class="case-title">Enterprise Web App Pen Test &mdash; Fintech Platform</h3>
+          <div class="case-meta">
+            <div class="case-meta-item"><span>Client:</span> Series B Fintech Startup (Confidential)</div>
+            <div class="case-meta-item"><span>Role:</span> Lead Penetration Tester</div>
+            <div class="case-meta-item"><span>Duration:</span> 3 weeks</div>
+          </div>
+        </div>
+        <div class="case-badge critical">Critical</div>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-section-label">Problem</div>
+          <p>Fintech platform processing $50M+ in transactions needed a comprehensive security assessment before their Series C funding round. Investors required evidence of security due diligence.</p>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Solution</div>
+          <p>Conducted full-scope web application penetration test following OWASP Testing Guide and PTES methodology. Used Burp Suite Pro for automated scanning, manual testing for business logic flaws. Tested authentication, authorization, session management, input validation, API endpoints, and payment processing flows.</p>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Deliverables</div>
+          <ul>
+            <li>Executive summary report</li>
+            <li>Technical vulnerability report (23 findings)</li>
+            <li>Risk-rated remediation roadmap</li>
+            <li>Proof-of-concept exploits for critical findings</li>
+            <li>Retesting after remediation</li>
+            <li>Security architecture recommendations</li>
+          </ul>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Impact</div>
+          <div class="case-impact">
+            <div class="impact-item">
+              <div class="impact-value">23</div>
+              <div class="impact-label">Vulnerabilities Found</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">3</div>
+              <div class="impact-label">Critical (SQLi, IDOR, Auth)</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">30-Day</div>
+              <div class="impact-label">Full Remediation</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">Zero</div>
+              <div class="impact-label">Incidents in 18 Months</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-tech">
+        <span>Burp Suite</span>
+        <span>sqlmap</span>
+        <span>Nmap</span>
+        <span>Python</span>
+        <span>OWASP ZAP</span>
+        <span>Metasploit</span>
+      </div>
+    </article>
+
+    <!-- Case Study 02 -->
+    <article class="case-study">
+      <div class="case-header">
+        <div class="case-header-left">
+          <div class="case-num">Case Study 02</div>
+          <h3 class="case-title">Cloud Security Audit &mdash; Healthcare SaaS</h3>
+          <div class="case-meta">
+            <div class="case-meta-item"><span>Client:</span> Healthcare SaaS Platform (HIPAA-regulated)</div>
+            <div class="case-meta-item"><span>Role:</span> Cloud Security Architect</div>
+            <div class="case-meta-item"><span>Duration:</span> 4 weeks</div>
+          </div>
+        </div>
+        <div class="case-badge critical">High</div>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-section-label">Problem</div>
+          <p>Healthcare SaaS platform needed HIPAA compliance certification and SOC 2 Type II audit readiness. Their AWS infrastructure had grown organically without security governance, creating significant compliance gaps.</p>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Solution</div>
+          <p>Conducted comprehensive AWS security configuration review using CIS Benchmarks. Audited IAM policies, S3 bucket permissions, VPC configurations, encryption at rest and in transit, CloudTrail logging, and GuardDuty alerts. Implemented zero-trust network architecture with micro-segmentation.</p>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Deliverables</div>
+          <ul>
+            <li>HIPAA Gap Analysis Report</li>
+            <li>AWS Security Configuration Audit (47 findings)</li>
+            <li>Zero-Trust Architecture Design</li>
+            <li>IAM Policy Remediation</li>
+            <li>Encryption Implementation Plan</li>
+            <li>SOC 2 Type II Evidence Package</li>
+          </ul>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Impact</div>
+          <div class="case-impact">
+            <div class="impact-item">
+              <div class="impact-value">47</div>
+              <div class="impact-label">Misconfigs Found</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value neon-text-cyan" style="color:var(--cyan)">Zero-Trust</div>
+              <div class="impact-label">Implemented</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">SOC 2</div>
+              <div class="impact-label">Passed (First Attempt)</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">HIPAA</div>
+              <div class="impact-label">Compliant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-tech">
+        <span>AWS Security Hub</span>
+        <span>CloudTrail</span>
+        <span>GuardDuty</span>
+        <span>IAM Access Analyzer</span>
+        <span>Prowler</span>
+        <span>ScoutSuite</span>
+      </div>
+    </article>
+
+    <!-- Case Study 03 -->
+    <article class="case-study">
+      <div class="case-header">
+        <div class="case-header-left">
+          <div class="case-num">Case Study 03</div>
+          <h3 class="case-title">Incident Response &mdash; Ransomware Recovery</h3>
+          <div class="case-meta">
+            <div class="case-meta-item"><span>Client:</span> Mid-Market Manufacturing Company</div>
+            <div class="case-meta-item"><span>Role:</span> Incident Response Lead</div>
+            <div class="case-meta-item"><span>Duration:</span> 72 hours (containment) + 2 weeks (recovery)</div>
+          </div>
+        </div>
+        <div class="case-badge critical">Critical</div>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-section-label">Problem</div>
+          <p>Manufacturing company hit by ransomware attack that encrypted 80% of their file servers, disrupted production systems, and demanded $2M Bitcoin ransom. Business operations completely halted.</p>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Solution</div>
+          <p>Led emergency incident response team. Isolated affected systems within 4 hours to prevent lateral movement. Conducted forensic analysis to identify attack vector (phishing email &rarr; compromised VPN credentials &rarr; lateral movement &rarr; domain admin &rarr; ransomware deployment). Recovered 100% of data from offline backups. Implemented security improvements.</p>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Deliverables</div>
+          <ul>
+            <li>Incident Timeline &amp; Root Cause Analysis</li>
+            <li>Forensic Evidence Preservation</li>
+            <li>Data Recovery from Offline Backups</li>
+            <li>Network Segmentation Implementation</li>
+            <li>Endpoint Detection &amp; Response Deployment</li>
+            <li>Employee Security Awareness Training</li>
+          </ul>
+        </div>
+        <div class="case-section">
+          <div class="case-section-label">Impact</div>
+          <div class="case-impact">
+            <div class="impact-item">
+              <div class="impact-value">4-Hour</div>
+              <div class="impact-label">Containment</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">100%</div>
+              <div class="impact-label">Data Recovered</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">$2M</div>
+              <div class="impact-label">Ransom NOT Paid</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-value">Zero</div>
+              <div class="impact-label">Recurrence</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-tech">
+        <span>CrowdStrike Falcon</span>
+        <span>Splunk</span>
+        <span>Wireshark</span>
+        <span>Volatility</span>
+        <span>EnCase</span>
+        <span>PowerShell</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<div class="green-line"></div>
+
+<!-- ============================== PROCESS ============================== -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag neon-text">// methodology</div>
+      <h2>Assessment Process</h2>
+      <p>Every engagement follows a proven four-phase methodology ensuring thorough coverage and actionable results.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="process-num">01</div>
+        <h3>Reconnaissance</h3>
+        <p>OSINT gathering, network mapping, attack surface discovery, technology fingerprinting, and passive information collection.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-num">02</div>
+        <h3>Enumeration</h3>
+        <p>Service fingerprinting, vulnerability scanning, manual probing, authentication testing, and configuration analysis.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-num">03</div>
+        <h3>Exploitation</h3>
+        <p>Controlled exploitation, privilege escalation, lateral movement, data exfiltration testing, and business logic abuse.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-num">04</div>
+        <h3>Reporting</h3>
+        <p>Executive summary, technical details with PoC, risk-rated findings, prioritized remediation roadmap, and retesting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="green-line"></div>
+
+<!-- ============================== TECH STACK ============================== -->
+<section class="section" id="tools">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag neon-text">// tech_stack</div>
+      <h2>Tools &amp; Technologies</h2>
+    </div>
+    <div class="tech-categories">
+      <div class="tech-category">
+        <div class="tech-category-label">Offensive</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Burp Suite</span>
+          <span class="tech-tag">Metasploit</span>
+          <span class="tech-tag">Nmap</span>
+          <span class="tech-tag">Wireshark</span>
+          <span class="tech-tag">sqlmap</span>
+          <span class="tech-tag">Hashcat</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-label">Defensive</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Splunk</span>
+          <span class="tech-tag">CrowdStrike</span>
+          <span class="tech-tag">Snort</span>
+          <span class="tech-tag">OSSEC</span>
+          <span class="tech-tag">Suricata</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-label">Cloud</div>
+        <div class="tech-tags">
+          <span class="tech-tag">AWS Security Hub</span>
+          <span class="tech-tag">Azure Sentinel</span>
+          <span class="tech-tag">CloudTrail</span>
+          <span class="tech-tag">GuardDuty</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-label">Languages</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Bash</span>
+          <span class="tech-tag">PowerShell</span>
+          <span class="tech-tag">Go</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-label">Frameworks</div>
+        <div class="tech-tags">
+          <span class="tech-tag">OWASP Top 10</span>
+          <span class="tech-tag">MITRE ATT&amp;CK</span>
+          <span class="tech-tag">NIST CSF</span>
+          <span class="tech-tag">PTES</span>
+          <span class="tech-tag">CIS Benchmarks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="green-line"></div>
+
+<!-- ============================== CTA ============================== -->
+<section class="cta-section">
+  <div class="container">
+    <div class="pulse-dot" style="margin:0 auto 16px"></div>
+    <h2>Need a Security Assessment?</h2>
+    <p>Let's discuss your security requirements. Available for penetration testing, security audits, and incident response engagements.</p>
+    <div class="cta-buttons">
+      <a href="/#contact" class="btn-primary">Get in Touch</a>
+      <a href="/" class="btn-outline">Back to Homepage</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-lock">
+      <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      <span>Connection secured | TLS 1.3 | 256-bit encryption</span>
+    </div>
+    <p class="footer-copy">&copy; 2025 Sarthak Singh. All rights reserved.</p>
+    <a href="#" class="footer-top">&uarr; top</a>
+  </div>
+</footer>
+
+</body>
+</html>
